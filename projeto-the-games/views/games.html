@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=], initial-scale=1.0">
+    <title>The Games</title>
+</head>
+<body>
+    <h1>Bem vindo a página de games!</h1>
+    <hr>
+    <p>Game mais jogado do momento:</p>
+    <!-- jinja2(template engine) ajuda a colocar o python rodar no html -->
+     {# Exemplo do comentário no jinja2, se no comentario de código do jinja dentro das chaves html o jinja tenta ler e da erro #}
+     <ul>
+     <li>Título: {{titulo}}</li>
+     <li>Ano: {{ano}}</li>
+     <li>Categoria: {{categoria}}</li>
+    </ul>
+    <p>O jogo {{titulo}} tem {{2025 - ano}} anos.</p>
+    <p> Jogadores no momento: </p>
+    <ol>
+        {# lista ordenada - com números, lista não ordenada -  com bolinhas; jogador vai ser cada item do vetor  #}
+        {% for jogador in jogadores: %}
+        <li>{{jogador}}</li>
+        {% endfor %}
+    </ol>
+    <hr>
+    <!-- Criar uma seção para exibir uma lista de outros games sendo jogados no momento. A lista deve possuir 7 games e ser não ordenada -->
+    <p> Outros jogos jogados no momento: </p>
+    <ul>
+        {% for jogos in jogosOnline: %}
+        <li>{{jogos}}</li>
+        {% endfor %}
+    </ul>
+    <hr>
+    <a href="/">Voltar para a homepage</a>
+</body>
+</html>
