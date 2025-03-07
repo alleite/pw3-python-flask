@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Games</title>
+</head>
+
+<body>
+    <h1>Bem vindo a página de games!</h1>
+    <hr>
+    <p>Game mais jogado no momento:</p>
+    <!-- Comentário HTML {# {variavel} #}-->
+    {# Exemplo de comentário no jinja2 #}
+
+    <!-- Percorrendo o dicionário com for -->
+    {% for chave, valor in game.items() %}
+    <details>
+        <summary>{{chave}}</summary>
+        <p>{{valor}}</p>
+    </details>
+    {% endfor %}
+
+    <p>O jogo {{game['Título']}} tem {{2025 - game['Ano']}} anos.</p>
+    <hr>
+    <p>Estão jogando no momento:</p>
+    <ol>
+        {% for jogador in jogadores: %}
+        <li>{{jogador}}</li>
+        {% endfor %}
+    </ol>
+    <hr>
+    <!-- Criar uma seção para exibir uma lista de outros games sendo jogados no momento. A lista deve possuir 7 games e ser não ordenada. -->
+    <hr>
+    <a href="/">Voltar para página inicial</a>
+</body>
+
+</html>
