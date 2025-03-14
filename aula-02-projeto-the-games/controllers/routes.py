@@ -8,8 +8,8 @@ gamelist = [{'Título': 'CS-GO',
              'Categoria': 'FPS Online'},
             ]
 consolelist = [{'Nome': 'Nintendo Switch',
-                'Preco': '2034.99 R$',
-                'País': 'Japão'}]
+                'Preco': 'R$ 2034.99',
+                'Pais': 'Japão'}]
 
 
 def init_app(app):
@@ -44,11 +44,11 @@ def init_app(app):
         return render_template('cadgames.html',
                                gamelist=gamelist)
 
-    @app.route('/console', methods=['GET', 'POST'])
-    def console():
+    @app.route('/consoles', methods=['GET', 'POST'])
+    def consoles():
         if request.method == 'POST':
-            if request.form.get('Nome') and request.form.get('Preco') and request.form.get('País'):
-                gamelist.append({'Título': request.form.get('Título'), 'Ano': request.form.get(
-                    'Ano'), 'Categoria': request.form.get('Categoria')})
-        return render_template('cadgames.html',
-                               gamelist=gamelist)
+            if request.form.get('Nome') and request.form.get('Preco') and request.form.get('Pais'):
+                consolelist.append({'Nome': request.form.get('Nome'), 'Preco': request.form.get(
+                    'Preco'), 'Pais': request.form.get('Pais')})
+        return render_template('consoles.html',
+                               consolelist=consolelist)
