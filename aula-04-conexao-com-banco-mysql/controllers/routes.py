@@ -74,14 +74,13 @@ def init_app(app):
     @app.route('/edit/<int:id>', methods=['GET', 'POST'])
     def edit(id):
         g = Game.query.get(id)
-        # Edita o jogo com as informações do formulário
-    if request.method == 'POST':
-        g.titulo = request.form['titulo']
-        g.ano = request.form['ano']
-        g.categoria = request.form['categoria']
-        g.plataforma = request.form['plataforma']
-        g.preco = request.form['preco']
-        g.quantidade = request.form['quantidade']
-        db.session.commit()
-        return redirect(url_for('estoque'))
-    return render_template('editgame.html', g=g)
+        if request.method == 'POST':
+            g.titulo = request.form['titulo']
+            g.ano = request.form['ano']
+            g.categoria = request.form['categoria']
+            g.plataforma = request.form['plataforma']
+            g.preco = request.form['preco']
+            g.quantidade = request.form['quantidade']
+            db.session.commit()
+            return redirect(url_for('estoque'))
+        return render_template('editgame.html', g=g)
