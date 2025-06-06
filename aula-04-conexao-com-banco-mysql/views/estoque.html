@@ -36,7 +36,7 @@
             <td>{{game.categoria}}</td>
             <td>{{game.plataforma}}</td>
             <td>{{game.preco}}</td>
-            <td><button class="btn btn-warning" href="{{url_for('edit',id=g.id)}}">Editar</button></td>
+            <td><a href="{{url_for('edit',id=game.id)}}"><button class="btn btn-warning">Editar</button></a></td>
             <td><a href="{{url_for('estoque', id=game.id)}}" onclick="return confirm('Deseja realmente exlcuir o jogo {{game.titulo}}')"><button class="btn btn-danger">Excluir</button></a></td>
         </tr>
         {% endfor %}

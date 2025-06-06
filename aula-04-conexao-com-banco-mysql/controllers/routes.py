@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for
-from models.database import Game,db
+from models.database import Game, db
 
 # Lista de jogadores
 jogadores = ['Miguel José', 'Miguel Isack', 'Leaf',
@@ -35,52 +35,53 @@ def init_app(app):
                                game=game,
                                jogadores=jogadores,
                                jogos=jogos)
-    
+
     # Rota de cadastro de jogos (em dicionário)
     @app.route('/cadgames', methods=['GET', 'POST'])
     def cadgames():
         if request.method == 'POST':
             if request.form.get('titulo') and request.form.get('ano') and request.form.get('categoria'):
-                gamelist.append({'Título' : request.form.get('titulo'), 'Ano' : request.form.get('ano'), 'Categoria' : request.form.get('categoria')})
+                gamelist.append({'Título': request.form.get('titulo'), 'Ano': request.form.get(
+                    'ano'), 'Categoria': request.form.get('categoria')})
             return redirect(url_for('cadgames'))
         return render_template('cadgames.html',
                                gamelist=gamelist)
 
-
     # Rota do Crud (Estoque de jogos)
+
     @app.route('/estoque', methods=['GET', 'POST'])
     @app.route('/estoque/ <int:id>')
     def estoque(id=None):
-        #Se o id for passado, então é para excluir o jogo
+        # Se o id for passado, então é para excluir o jogo
         if id:
             game = Game.query.get(id)
-            #Deleta o jogo do banco 
+            # Deleta o jogo do banco
             db.session.delete(game)
             db.session.commit()
             return redirect(url_for('estoque'))
         # o Método query.all == SELECT * FROM
         # A ORM que estamos utilizando é a SQLAlchemy
-        if request.method == 'POST': 
-            #Cadastrando o jogo no banco
-            newgame = Game(request.form['titulo'], request.form['ano'], request.form['categoria'], request.form['plataforma'], request.form['preco'])
+        if request.method == 'POST':
+            # Cadastrando o jogo no banco
+            newgame = Game(request.form['titulo'], request.form['ano'],
+                           request.form['categoria'], request.form['plataforma'], request.form['preco'])
             db.session.add(newgame)
             db.session.commit()
             return redirect(url_for('estoque'))
-            
+
         gamesEmEstoque = Game.query.all()
         return render_template('estoque.html', gamesEmEstoque=gamesEmEstoque)
-    
+
     # crud - Edição
     @app.route('/edit/<int:id>', methods=['GET', 'POST'])
     def edit(id):
-        g = Game.query.get(id)
+        game = Game.query.get(id)
         if request.method == 'POST':
-            g.titulo = request.form['titulo']
-            g.ano = request.form['ano']
-            g.categoria = request.form['categoria']
-            g.plataforma = request.form['plataforma']
-            g.preco = request.form['preco']
-            g.quantidade = request.form['quantidade']
+            game.titulo = request.form['titulo']
+            game.ano = request.form['ano']
+            game.categoria = request.form['categoria']
+            game.plataforma = request.form['plataforma']
+            game.preco = request.form['preco']
             db.session.commit()
             return redirect(url_for('estoque'))
-        return render_template('editgame.html', g=g)
+        return render_template('editgame.html', game=game)
