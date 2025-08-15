@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<main>
+    <a style="text-align: center;">
+        <h1>Bem-vindo a Livraria Nana!</h1>
+        <h3>Conheça um pouco sobre a gente</h3>
+    </a>
+    <div class="sobre-container">
+        <img src="{{url_for('static', filename='images/fachada.png')}}" class="img_index">
+        <div class="area_text">
+            <p>
+                A Livraria Nana é aquele tipo de lugar que acolhe — seja com café e aconchego entre estantes de madeira
+                ou com um clique no seu canto favorito da internet.
+                <br>
+                Nascemos com um pé no mundo real e outro no digital, porque acreditamos que a magia dos livros pode (e
+                deve!) estar onde você estiver. Nossa livraria é um espaço físico e virtual pensado para leitores de
+                todos os jeitos: os que gostam de folhear páginas com cheiro de novo, os que se encantam por capas na
+                tela, e os que simplesmente não vivem sem uma boa história por perto.
+                <br>
+                Na Nana, cada livro tem um lar, e cada leitor, um lugar especial. Seja na nossa loja, sentando num
+                cantinho com luz natural, ou navegando pelo nosso site de pantufas, você vai encontrar mais do que
+                livros — vai encontrar pausas, descobertas, e talvez até um pouco de você mesmo entre as linhas.
+                <br>
+                Aqui, todo mundo é bem-vindo. Aqui, a leitura acontece no seu ritmo.
+                <br>
+                Bem-vindo à Nana — sua livraria, do jeitinho que você quiser.
+            </p>
+        </div>
+    </div>
+
+   
+</main>
+
+{% endblock content %}

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Cadastro de Livros</h1>
+<div style="display: flex; align-items: flex-start; justify-content: center;">
+    <div class="area_form">
+        <form action="{{url_for('cadLivros')}}" method="POST">
+            <label>Título:</label>
+            <input type="text" name="titulo" class="form-control" required>
+            <label>Data de pubicação:</label>
+            <input type="date" name="ano" class="form-control" required>
+            <label>Nome do autor:</label>
+            <input type="text" name="autor" class="form-control" required>
+            <label>Gênero literário:</label>
+            <input type="text" name="genero" class="form-control" required>
+            <label>Quantidade de páginas:</label>
+            <input type="number" name="paginas" class="form-control" required>
+            <label>Editora:</label>
+            <input type="text" name="editora" class="form-control" required>
+            <button type="submit" value="Cadastrar" class="btn btn-success">Cadastrar</button>
+        </form>
+    </div>
+    <br>
+
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Título:</th>
+                <th>Data de publicação:</th>
+                <th>Autor:</th>
+                <th>Gênero</th>
+                <th>Quantidade de páginas:</th>
+                <th>Editora:</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for livro in livrolist %}
+            <tr>
+                <td>{{livro.Título}}</td>
+                <td>{{livro.Datapublicação}}</td>
+                <td>{{livro.Autor}}</td>
+                <td>{{livro.Gênero}}</td>
+                <td>{{livro.QuantPáginas}}</td>
+                <td>{{livro.Editora}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}

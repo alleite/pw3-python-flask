@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Indicação de livros</h1>
+
+<div class="container my-4">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="area_form mb-4">
+                <form action="{{ url_for('indicacoes') }}" method="POST">
+                    <label>Nome:</label>
+                    <input type="text" name="nome2" class="form-control mb-2" required>
+                    <label>Nome do livro:</label>
+                    <input type="text" name="livronome" class="form-control mb-2" required>
+                    <label>Nome do autor:</label>
+                    <input type="text" name="autornome" class="form-control mb-2" required>
+                    <label>Gênero do livro:</label>
+                    <input type="text" name="livrogenero" class="form-control mb-3" required>
+                    <button type="submit" value="Cadastrar" class="btn btn-success">Cadastrar</button>
+                </form>
+            </div>
+        </div>
+
+        <h1 class="mb-3" style="margin-top: 2rem;">Livros indicados</h1>
+        <div class="col-md-8" id="div-indicados">
+            <div class="row livros-indicados-container">
+                {% for livros in livroindicado %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 livro-card" style="padding: 5px;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ livros['Nomelivro'] }}</h5>
+                            <h5 class="card-subtitle mb-2 text-muted">{{ livros['Nomeautor'] }}</h5>
+                            <h5 class="card-text"><strong>Gênero:</strong> {{ livros['Gênero'] }}</h5>
+                            <h5 class="card-text"><strong>Indicado por:</strong> {{ livros['Quemindicou'] }}</h5>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

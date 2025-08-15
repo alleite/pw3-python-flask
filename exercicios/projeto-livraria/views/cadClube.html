@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Cadastro Clube do livro</h1>
+<div style="display: flex; align-items: flex-start; justify-content: center;">
+    <div class="area_form">
+        <form action="{{url_for('cadClube')}}" method="POST">
+            <label>Nome:</label>
+            <input type="text" name="nome" class="form-control" required>
+            <label>E-mail::</label>
+            <input type="email" name="email" class="form-control" required>
+            <label>Data de nascimento:</label>
+            <input type="date" name="ano" class="form-control" required>
+            <label>Telefone:</label>
+            <input type="tel" name="telefone" class="form-control" required>
+            <label>Gênero preferido:</label>
+            <input type="text" name="genero" class="form-control" required>
+            <label>Senha:</label>
+            <input type="password" name="senha" class="form-control" required>
+            <button type="submit" value="Cadastrar" class="btn btn-success">Cadastrar</button>
+        </form>
+    </div>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Nome:</th>
+            <th>E-mail:</th>
+            <th>Data de nascimento:</th>
+            <th>Telefone:</th>
+            <th>Gênero escolhido:</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for club in clublist %}
+        <tr>
+            <td>{{ club['Nome'] }}</td>
+            <td>{{ club['Email'] }}</td>
+            <td>{{ club['DataNascimento'] }}</td>
+            <td>{{ club['Telefone'] }}</td>
+            <td>{{ club['GêneroLivro'] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock content %}
