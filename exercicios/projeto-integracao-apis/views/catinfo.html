@@ -1,0 +1,20 @@
+{% extends 'base.html '%}
+{% block content %}
+<div class="container" style="background-color:#7e88b9; border-radius: 8px;">
+    <a href="{{url_for('apicats')}}" class="btn btn-dark" style="align-items: flex-start;"> Voltar para mais gatinhos</a>
+    <div class="row">
+        <div class="col-md-6 m-auto">
+            <div class="card">
+                <img src="https://cdn2.thecatapi.com/images/{{ catInfo.reference_image_id }}.jpg"
+                style="width: 98%; height: 400px; object-fit: cover;">
+                <div class="card-body m-auto">
+                <h3>{{catInfo.name}}</h3>
+                <p><b>Origin country:</b>{{catInfo.origin}}</p>                
+                <p><b>Temperament:</b>{{catInfo.temperament}}</p>                
+                <p><b>Short description:</b>{{catInfo.description}}</p>                               
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,22 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<div class="container" style="background-color: #f0f0f0; border-radius: 8px;">
+    <div class="row">
+        {% for cat in catsList %}
+        <div class="col-md-3 m-auto">
+            <div class="cat" style="width: 16rem;">
+                <img src="https://cdn2.thecatapi.com/images/{{ cat.reference_image_id }}.jpg"
+                style="width: 100%; height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h5>{{cat.name}}</h5>
+                    <p>{{cat.origin}}</p>
+                    <a href="{{url_for('apicats', id=cat.id)}}" class="btn btn-dark">+ Info</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}
