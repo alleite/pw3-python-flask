@@ -1,7 +1,9 @@
-from flask import render_template, request, url_for, redirect
-from models.database import db, Game, Console
+from flask import render_template, request, url_for, redirect, flash
+from models.database import db, Game, Console, Usuario
 import urllib
 import json
+# Importando a biblioteca de segurança
+from werkzeug.security import generate_password_hash, check_password_hash
 
 # Lista de jogadores
 jogadores = ['Miguel José', 'Miguel Isack', 'Leaf',
@@ -54,7 +56,7 @@ def init_app(app):
                            request.form['preco'], request.form['quantidade'], request.form['console'])
             db.session.add(newgame)
             db.session.commit()
-            
+
             return redirect(url_for('gamesEstoque'))
         else:
             # Captura o valor de 'page' que foi passado pelo método GET
@@ -65,9 +67,9 @@ def init_app(app):
             # Faz um SELECT no banco a partir da pagina informada (page)
             # Filtrando os registro de 3 em 3 (per_page)
             games_page = Game.query.paginate(page=page, per_page=per_page)
-            
+
             consoles = Console.query.all()
-                       
+
             return render_template('gamesestoque.html', gamesestoque=games_page, consoles=consoles)
 
     # CRUD GAMES - EDIÇÃO
@@ -102,7 +104,8 @@ def init_app(app):
             return redirect(url_for('consolesEstoque'))
         # Cadastra um novo console
         if request.method == 'POST':
-            newconsole = Console(request.form['nome'], request.form['fabricante'], request.form['ano_lancamento'])
+            newconsole = Console(
+                request.form['nome'], request.form['fabricante'], request.form['ano_lancamento'])
             db.session.add(newconsole)
             db.session.commit()
             return redirect(url_for('consolesEstoque'))
@@ -114,7 +117,8 @@ def init_app(app):
             per_page = 3
             # Faz um SELECT no banco a partir da pagina informada (page)
             # Filtrando os registro de 3 em 3 (per_page)
-            consoles_page = Console.query.paginate(page=page, per_page=per_page)
+            consoles_page = Console.query.paginate(
+                page=page, per_page=per_page)
             return render_template('consolesestoque.html', consolesestoque=consoles_page)
 
     # CRUD CONSOLES - EDIÇÃO
@@ -129,7 +133,7 @@ def init_app(app):
             db.session.commit()
             return redirect(url_for('consolesEstoque'))
         return render_template('editconsole.html', console=console)
-    
+
     # Rota de API de jogos
     @app.route('/apigames', methods=['GET', 'POST'])
     @app.route('/apigames/<int:id>', methods=['GET', 'POST'])
@@ -151,14 +155,33 @@ def init_app(app):
                 return f'Game com a ID {id} não foi encontrado.'
         else:
             return render_template('apigames.html', gameList=gameList)
-    
+
     # Rota de Login
     @app.route('/login', methods=['GET', 'POST'])
     def login():
         return render_template('login.html')
-    
+
     # Rota de Cadastro
     @app.route('/caduser', methods=['GET', 'POST'])
     def caduser():
+        if request.method == 'POST':
+            nome = request.form['nome']
+            email = request.form['email']
+            senha = request.form['senha']
+            # verificando se o usuario ja existe
+            user = Usuario.query.filter_by(email=email).first()
+            # se o usuário existir
+            if user:
+                flash('Usuário já cadastrado. Faça o Login!', 'danger')
+                return redirect(url_for('caduser'))
+            # se o usário não existir
+            else:
+                hash = generate_password_hash(senha, method='scrypt')
+                newUser = Usuario(nome=nome, email=email, senha=hash)
+                db.session.add(newUser)
+                db.session.commit()
+                flash(
+                    'Cadastro realizado com sucesso! Você já pode fazer o login!', 'success')
+                return redirect(url_for('login'))
+
         return render_template('caduser.html')
-    
