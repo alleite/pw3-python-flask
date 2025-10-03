@@ -14,11 +14,11 @@
 <div class="container">
     <div class="card mt-4">
         <div class="card-body m-auto">
-            <form action="">
+            <form action="{{url_for('login')}}" method="POST">
                 <label>Email:</label>
                 <input type="email" name="email" class="form-control mb-2" placeholder="email@exemplo.com">
                 <label>Senha:</label>
-                <input type="password" name="Senha" class="form-control mb-2" placeholder="Insira sua senha!">
+                <input type="password" name="senha" class="form-control mb-2" placeholder="Insira sua senha!">
                 <button type="submit" class="btn btn-danger btn-block">Entrar</button>
             </form>
             <hr>
