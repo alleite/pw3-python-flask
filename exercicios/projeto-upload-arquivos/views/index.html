@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
+      {{ message }}
+    </div>
+  {% endfor %}
+{% endwith %}
+
+    <h2>Esta é a Homepage.</h2>
+
+    {% for g in gamesdb %}
+        {{g.titulo}}<br>
+        {{g.ano}}<br>
+        {{g.categoria}}<br>
+        {{g.preco}}<br>
+    {% endfor %}
+
+{% endblock content %}
